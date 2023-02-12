@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div>Openlayers Samples</div>
+        <div className='text-3xl font bold bg-red-100 p-4 round-sm'>Openlayers Samples</div>
       </main>
     </>
   )
