@@ -11,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="text-3xl font bold bg-red-100 p-4 round-sm">Openlayers Samples</div>
+        <div className="rounded-sm bg-red-100 p-4 text-3xl font-bold">Openlayers Samples</div>
       </main>
     </>
   );
