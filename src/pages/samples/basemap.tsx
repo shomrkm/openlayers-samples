@@ -8,7 +8,7 @@ import View from 'ol/View';
 
 const BaseMap: React.FC = () => {
   const mapElement = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<OLMap | undefined>();
+  const [, setMap] = useState<OLMap | undefined>();
 
   useEffect(() => {
     if (!mapElement.current) return;
@@ -23,7 +23,7 @@ const BaseMap: React.FC = () => {
 
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl">Display Basemap</div>
+      <div className="text-4xl text-gray-700">Display Basemap</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
     </div>
   );
