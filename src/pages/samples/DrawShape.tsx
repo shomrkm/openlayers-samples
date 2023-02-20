@@ -9,11 +9,26 @@ import { Draw } from 'ol/interaction';
 import { Type } from 'ol/geom/Geometry';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
+import { Style, Fill, Stroke, Circle } from 'ol/style';
+
+const fill = new Fill({
+  color: [255, 255, 255, 0.2],
+});
+const stroke = new Stroke({
+  color: '#ffcc33',
+  width: 2,
+});
+const circle = new Circle({
+  radius: 7,
+  stroke,
+  fill,
+});
+const style = new Style({ fill, stroke, image: circle });
 
 const DrawShape: React.FC = () => {
   const mapElement = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<OLMap | undefined>();
-  const [type, setType] = useState<Type>();
+  const [type, setType] = useState<Type>('Point');
 
   const source = useMemo(() => new VectorSource(), []);
   const draw = useMemo(() => type && new Draw({ source, type }), [source, type]);
@@ -27,13 +42,7 @@ const DrawShape: React.FC = () => {
         new TileLayer({ source: new OSM() }),
         new VectorLayer({
           source,
-          style: {
-            'fill-color': 'rgba(255,255,255, 0.2)',
-            'stroke-color': '#ffcc33',
-            'stroke-width': 2,
-            'circle-radius': 7,
-            'circle-fill-color': '#ffcc33',
-          },
+          style,
         }),
       ],
     });
@@ -65,7 +74,7 @@ const DrawShape: React.FC = () => {
           className="block rounded-sm border border-solid border-gray-300 px-4 py-1.5 font-normal text-gray-600"
           onChange={handleChange}
         >
-          <option value="Point">Point</option>
+          <option defaultValue="Point">Point</option>
           <option value="LineString">LineString</option>
           <option value="Polygon">Polygon</option>
         </select>
