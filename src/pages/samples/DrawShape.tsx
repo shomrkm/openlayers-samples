@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
 import 'ol/ol.css';
-import TileLayer from 'ol/layer/Tile';
+import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import OLMap from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 import { Draw } from 'ol/interaction';
 import { Type } from 'ol/geom/Geometry';
-import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Style, Fill, Stroke, Circle } from 'ol/style';
 
@@ -51,12 +50,12 @@ const DrawShape: React.FC = () => {
   }, [source]);
 
   useEffect(() => {
-    if (map && draw) {
-      map.addInteraction(draw);
-      return () => {
-        map.removeInteraction(draw);
-      };
-    }
+    if (!map || !draw) return;
+
+    map.addInteraction(draw);
+    return () => {
+      map.removeInteraction(draw);
+    };
   }, [map, draw]);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
