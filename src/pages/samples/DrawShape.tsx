@@ -63,6 +63,10 @@ const DrawShape: React.FC = () => {
     setType(e.target.value as Type);
   }, []);
 
+  const handleClear = useCallback(() => {
+    source.clear();
+  }, [source]);
+
   return (
     <div className="m-4 flex-col">
       <div className="text-4xl text-gray-700">Drawing Shape</div>
@@ -77,6 +81,12 @@ const DrawShape: React.FC = () => {
           <option value="LineString">LineString</option>
           <option value="Polygon">Polygon</option>
         </select>
+        <button
+          className="mx-4 rounded-sm border border-solid border-gray-300 px-4 text-gray-600"
+          onClick={handleClear}
+        >
+          Clear
+        </button>
       </div>
     </div>
   );
