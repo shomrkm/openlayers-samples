@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Openlayers Samples</title>
+        <title>Openlayers Samples with React</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="m-2 h-screen w-screen flex-col bg-gray-100">
