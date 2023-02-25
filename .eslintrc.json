@@ -9,10 +9,7 @@
     "browser": true,
     "es2021": true
   },
-  "plugins": [
-    "typescript",
-    "tailwindcss"
-  ],
+  "plugins": ["typescript", "tailwindcss"],
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error"
