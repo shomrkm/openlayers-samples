@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import 'prismjs';
 import 'prismjs/components/prism-typescript';
-// import 'prismjs/themes/prism-darcula.css';
-
 
 type Props = {
   code: string;
