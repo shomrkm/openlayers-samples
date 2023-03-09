@@ -5,12 +5,17 @@ const pages: CardProps[] = [
   {
     title: 'Show a Basemap',
     description: 'Show a background map view like Open Street View.',
-    link: '/samples/Basemap',
+    link: '/samples/DisplayBasemap',
   },
   {
     title: 'Draw Shape',
     description: 'Drawing a shape on the basemap.',
     link: '/samples/DrawShape',
+  },
+  {
+    title: 'Modify Shape',
+    description: 'Modify a shape on the basemap.',
+    link: '/samples/ModifyShape',
   },
 ];
 

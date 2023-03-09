@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo} from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo} from 'react';
 
 import 'ol/ol.css';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
@@ -25,7 +25,7 @@ const circle = new Circle({
 });
 const style = new Style({ fill, stroke, image: circle });
 
-const INITIAL_DATE = [
+const INITIAL_SHAPE = [
       [
         [
           141.13922828482868,
@@ -65,7 +65,7 @@ const ModifyShape: React.FC = () => {
   const source = useMemo(() => new VectorSource(), []);
   const draw = useMemo(() => new Modify({ source }), [source]);
 
-  source.addFeature(new Feature( new Polygon(INITIAL_DATE)));
+  source.addFeature(new Feature( new Polygon(INITIAL_SHAPE)));
 
   useEffect(() => {
     if (!mapElement.current) return;
@@ -93,11 +93,22 @@ const ModifyShape: React.FC = () => {
     };
   }, [map, draw]);
 
+  const handleRevertChange = useCallback(() => {
+    source.clear();
+    source.addFeature(new Feature( new Polygon(INITIAL_SHAPE)));
+  }, [source]);
+
   return (
     <div className="m-4 flex-col">
       <div className="text-4xl text-gray-700">Modify Shape</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
       <div className="flex justify-start py-4">
+        <button
+          className="rounded-sm border border-solid border-gray-300 px-4 text-gray-600"
+          onClick={handleRevertChange}
+        >
+         Revert Changes 
+        </button>
       </div>
     </div>
   );
