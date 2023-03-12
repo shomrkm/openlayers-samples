@@ -9,7 +9,7 @@ import { Draw } from 'ol/interaction';
 import { Type } from 'ol/geom/Geometry';
 import VectorSource from 'ol/source/Vector';
 import { Style, Fill, Stroke, Circle } from 'ol/style';
-import { createRegularPolygon, GeometryFunction } from 'ol/interaction/Draw';
+import { createBox, createRegularPolygon, GeometryFunction } from 'ol/interaction/Draw';
 
 const fill = new Fill({
   color: [255, 255, 255, 0.2],
@@ -27,6 +27,7 @@ const style = new Style({ fill, stroke, image: circle });
 
 const GeometryFunction: Record<string, GeometryFunction> = {
   Square: createRegularPolygon(4),
+  Box: createBox(),
 }
 
 const DrawCircleTypeShape: React.FC = () => {
@@ -91,6 +92,7 @@ const DrawCircleTypeShape: React.FC = () => {
         >
           <option defaultValue="None">Circle</option>
           <option value="Square">Square</option>
+          <option value="Box">Box</option>
         </select>
         <button
           className="mx-4 rounded-sm border border-solid border-gray-300 px-4 text-gray-600"
