@@ -16,7 +16,7 @@
         "stylelint.vscode-stylelint",
         "ecmel.vscode-html-css"
       ]
-    }
+    },
   },
   "service": "app",
   // "postCreateCommand": "yarn build",
