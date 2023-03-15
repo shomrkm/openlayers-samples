@@ -8,21 +8,8 @@ import View from 'ol/View';
 import { Draw } from 'ol/interaction';
 import { Type } from 'ol/geom/Geometry';
 import VectorSource from 'ol/source/Vector';
-import { Style, Fill, Stroke, Circle } from 'ol/style';
 
-const fill = new Fill({
-  color: [255, 255, 255, 0.2],
-});
-const stroke = new Stroke({
-  color: '#ffcc33',
-  width: 2,
-});
-const circle = new Circle({
-  radius: 7,
-  stroke,
-  fill,
-});
-const style = new Style({ fill, stroke, image: circle });
+import { style } from '@/utils/olStyles';
 
 const DrawShape: React.FC = () => {
   const mapElement = useRef<HTMLDivElement>(null);
@@ -69,7 +56,7 @@ const DrawShape: React.FC = () => {
 
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl text-gray-700">Drawing Shape</div>
+      <div className="text-4xl text-gray-700">Drawing a Shape</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
       <div className="flex justify-start py-4">
         <p className="flex items-center pl-2 pr-4 text-lg text-gray-600">Drawing geometry type:</p>

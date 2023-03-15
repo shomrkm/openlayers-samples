@@ -8,22 +8,10 @@ import View from 'ol/View';
 import { Draw } from 'ol/interaction';
 import { Type } from 'ol/geom/Geometry';
 import VectorSource from 'ol/source/Vector';
-import { Style, Fill, Stroke, Circle } from 'ol/style';
 import { createBox, createRegularPolygon, GeometryFunction } from 'ol/interaction/Draw';
 
-const fill = new Fill({
-  color: [255, 255, 255, 0.2],
-});
-const stroke = new Stroke({
-  color: '#ffcc33',
-  width: 2,
-});
-const circle = new Circle({
-  radius: 7,
-  stroke,
-  fill,
-});
-const style = new Style({ fill, stroke, image: circle });
+import { style } from '@/utils/olStyles';
+
 
 const GeometryFunction: Record<string, GeometryFunction> = {
   Square: createRegularPolygon(4),
