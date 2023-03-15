@@ -17,6 +17,11 @@ const pages: CardProps[] = [
     description: 'Modify a shape on the basemap.',
     link: '/samples/ModifyShape',
   },
+  {
+    title: 'Draw Circle Type Shape',
+    description: 'Drawing a circle type shape on the basemap.',
+    link: '/samples/DrawCircleTypeShape',
+  },
 ];
 
 export default function Home() {
