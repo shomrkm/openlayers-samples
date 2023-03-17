@@ -35,7 +35,7 @@ export const BaseMap: React.FC<BaseMapProps> = ({
 
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl text-gray-700">Display Basemap</div>
+      <div className="text-4xl text-gray-700">Render Basemap (OSM)</div>
       <div className="my-4 h-[600px] w-full" ref={mapElement} />
     </div>
   );

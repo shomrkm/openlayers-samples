@@ -87,7 +87,7 @@ const ModifyShape: React.FC = () => {
 
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl text-gray-700">Modify Shape</div>
+      <div className="text-4xl text-gray-700">Modify Shapes</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
       <div className="flex justify-start py-4">
         <button
