@@ -70,10 +70,10 @@ const DrawCircleTypeShape: React.FC = () => {
 
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl text-gray-700">Drawing a Circle Type Shape</div>
+      <div className="text-4xl text-gray-700">Draw Circle Type Shapes</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
       <div className="flex justify-start py-4">
-        <p className="flex items-center pl-2 pr-4 text-lg text-gray-600">Drawing geometry type:</p>
+        <p className="flex items-center pl-2 pr-4 text-lg text-gray-600">Shape type:</p>
         <select
           className="block rounded-sm border border-solid border-gray-300 px-4 py-1.5 font-normal text-gray-600"
           onChange={handleChange}
