@@ -8,4 +8,4 @@ This repository is intended to share sample code for using OpenLayers with React
 
 You can view a page from this repository deployed on Vercel below.
 
-- [Sample Pages](https://openlayers-samples-h7h8l1ow8-shomrkm.vercel.app/)
+- [Sample Pages](https://openlayers-samples.vercel.app/)
