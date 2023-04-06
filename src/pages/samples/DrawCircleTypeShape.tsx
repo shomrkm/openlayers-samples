@@ -8,16 +8,30 @@ import View from 'ol/View';
 import { Draw } from 'ol/interaction';
 import { Type } from 'ol/geom/Geometry';
 import VectorSource from 'ol/source/Vector';
+import { createBox, createRegularPolygon, GeometryFunction } from 'ol/interaction/Draw';
 
 import { style } from '@/utils/olStyles';
 
-const DrawShape: React.FC = () => {
+
+const GeometryFunction: Record<string, GeometryFunction> = {
+  Square: createRegularPolygon(4),
+  Box: createBox(),
+}
+
+const DrawCircleTypeShape: React.FC = () => {
   const mapElement = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<OLMap | undefined>();
   const [type, setType] = useState<Type>('Point');
 
   const source = useMemo(() => new VectorSource(), []);
-  const draw = useMemo(() => type && new Draw({ source, type }), [source, type]);
+  const draw = useMemo(() => { 
+    if(!type) return;
+
+    return new Draw({ 
+      source, 
+      type: 'Circle', 
+      geometryFunction: GeometryFunction[type] });
+  }, [source, type]);
 
   useEffect(() => {
     if (!mapElement.current) return;
@@ -56,7 +70,7 @@ const DrawShape: React.FC = () => {
 
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl text-gray-700">Draw Point/LineString/Polygon</div>
+      <div className="text-4xl text-gray-700">Draw Circle Type Shapes</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
       <div className="flex justify-start py-4">
         <p className="flex items-center pl-2 pr-4 text-lg text-gray-600">Shape type:</p>
@@ -64,9 +78,9 @@ const DrawShape: React.FC = () => {
           className="block rounded-sm border border-solid border-gray-300 px-4 py-1.5 font-normal text-gray-600"
           onChange={handleChange}
         >
-          <option defaultValue="Point">Point</option>
-          <option value="LineString">LineString</option>
-          <option value="Polygon">Polygon</option>
+          <option defaultValue="None">Circle</option>
+          <option value="Square">Square</option>
+          <option value="Box">Box</option>
         </select>
         <button
           className="mx-4 rounded-sm border border-solid border-gray-300 px-4 text-gray-600"
@@ -78,4 +92,4 @@ const DrawShape: React.FC = () => {
     </div>
   );
 };
-export default DrawShape;
+export default DrawCircleTypeShape;

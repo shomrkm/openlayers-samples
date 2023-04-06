@@ -1,23 +1,58 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo} from 'react';
 
 import 'ol/ol.css';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import OLMap from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
-import { Draw } from 'ol/interaction';
-import { Type } from 'ol/geom/Geometry';
+import { Modify} from 'ol/interaction';
 import VectorSource from 'ol/source/Vector';
+import { Feature } from 'ol';
+import { Polygon } from 'ol/geom';
 
 import { style } from '@/utils/olStyles';
 
-const DrawShape: React.FC = () => {
+const INITIAL_SHAPE = [
+      [
+        [
+          141.13922828482868,
+          39.700746114892695
+        ],
+        [
+          141.13562590259545,
+          39.699950292498954
+        ],
+        [
+          141.13569723689824,
+          39.69791953170119
+        ],
+        [
+          141.13826527175615,
+          39.69671202398027
+        ],
+        [
+          141.1412613124262,
+          39.69715112014126
+        ],
+        [
+          141.14261666418167,
+          39.699044690323944
+        ],
+        [
+          141.13922828482868,
+          39.700746114892695
+        ]
+      ]
+    ];
+
+const ModifyShape: React.FC = () => {
   const mapElement = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<OLMap | undefined>();
-  const [type, setType] = useState<Type>('Point');
 
   const source = useMemo(() => new VectorSource(), []);
-  const draw = useMemo(() => type && new Draw({ source, type }), [source, type]);
+  const draw = useMemo(() => new Modify({ source }), [source]);
+
+  source.addFeature(new Feature( new Polygon(INITIAL_SHAPE)));
 
   useEffect(() => {
     if (!mapElement.current) return;
@@ -45,37 +80,24 @@ const DrawShape: React.FC = () => {
     };
   }, [map, draw]);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (!e.target.value) return;
-    setType(e.target.value as Type);
-  }, []);
-
-  const handleClear = useCallback(() => {
+  const handleRevertChange = useCallback(() => {
     source.clear();
+    source.addFeature(new Feature( new Polygon(INITIAL_SHAPE)));
   }, [source]);
 
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl text-gray-700">Draw Point/LineString/Polygon</div>
+      <div className="text-4xl text-gray-700">Modify Shapes</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
       <div className="flex justify-start py-4">
-        <p className="flex items-center pl-2 pr-4 text-lg text-gray-600">Shape type:</p>
-        <select
-          className="block rounded-sm border border-solid border-gray-300 px-4 py-1.5 font-normal text-gray-600"
-          onChange={handleChange}
-        >
-          <option defaultValue="Point">Point</option>
-          <option value="LineString">LineString</option>
-          <option value="Polygon">Polygon</option>
-        </select>
         <button
-          className="mx-4 rounded-sm border border-solid border-gray-300 px-4 text-gray-600"
-          onClick={handleClear}
+          className="rounded-sm border border-solid border-gray-300 px-4 text-gray-600"
+          onClick={handleRevertChange}
         >
-          Clear
+         Revert Changes 
         </button>
       </div>
     </div>
   );
 };
-export default DrawShape;
+export default ModifyShape;
