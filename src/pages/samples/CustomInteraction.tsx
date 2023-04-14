@@ -29,6 +29,9 @@ type Option = {
   features: Collection<Feature>;
 };
 
+/**
+ * Custom Interaction class by using subclassing ol/interaction/Pointer to drag and copy.
+ */
 export class Copy extends PointerInteraction {
   protected coordinate: number[];
   protected selectedFeature: FeatureLike | undefined;
