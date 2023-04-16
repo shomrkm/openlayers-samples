@@ -130,7 +130,7 @@ const CustomInteraction: React.FC = () => {
 
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl text-gray-700">Draw Point/LineString/Polygon</div>
+      <div className="text-4xl text-gray-700">Custom Interaction</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
       <div className="flex justify-start py-4">
         <button
