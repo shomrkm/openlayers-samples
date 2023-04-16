@@ -8,7 +8,7 @@ import View from 'ol/View';
 import VectorSource from 'ol/source/Vector';
 
 import { style } from '@/utils/olStyles';
-import { Collection, Feature, MapBrowserEvent } from 'ol';
+import { Feature, MapBrowserEvent } from 'ol';
 import { Geometry, Polygon } from 'ol/geom';
 import PointerInteraction from 'ol/interaction/Pointer';
 import { FeatureLike } from 'ol/Feature';
@@ -26,7 +26,7 @@ const INITIAL_SHAPE = [
 ];
 
 type Option = {
-  features: Collection<Feature>;
+  source: VectorSource;
 };
 
 /**
@@ -35,17 +35,17 @@ type Option = {
 export class Copy extends PointerInteraction {
   protected coordinate: number[];
   protected selectedFeature: FeatureLike | undefined;
-  readonly features: Collection<Feature>;
+  readonly source: VectorSource;
 
   constructor(optOption: Option) {
     super();
 
     this.coordinate = [];
-    this.features = optOption.features;
+    this.source = optOption.source;
     this.selectedFeature = undefined;
   }
 
-  protected handleDownEvent(evt: MapBrowserEvent<any>) {
+  protected handleDownEvent(evt: MapBrowserEvent<MouseEvent>) {
     const { map } = evt;
     const feat = map.forEachFeatureAtPixel(evt.pixel, (f: FeatureLike) => f);
     if (feat) {
@@ -60,7 +60,7 @@ export class Copy extends PointerInteraction {
    * Pointer drag イベントのハンドリング処理
    * @param mapBrowserEvent イベント.
    */
-  protected handleDragEvent(evt: MapBrowserEvent<any>) {
+  protected handleDragEvent(evt: MapBrowserEvent<MouseEvent>) {
     if (!this.selectedFeature) return;
 
     const deltaX = evt.coordinate[0] - this.coordinate[0];
@@ -81,7 +81,7 @@ export class Copy extends PointerInteraction {
    */
   protected handleUpEvent() {
     if (this.selectedFeature) {
-      this.features.push((this.selectedFeature as Feature).clone());
+      this.source.addFeature((this.selectedFeature as Feature).clone());
     }
     this.coordinate = [];
     this.selectedFeature = undefined;
@@ -94,12 +94,8 @@ const CustomInteraction: React.FC = () => {
   const [map, setMap] = useState<OLMap | undefined>();
 
   const source = useMemo(() => new VectorSource(), []);
+  const copy = useMemo(() => new Copy({ source }), [source]);
   source.addFeature(new Feature(new Polygon(INITIAL_SHAPE)));
-
-  // TODO:
-  map.addInteraction(
-    new Copy({ features: source.getFeaturesCollection() ?? new Collection<Feature>() })
-  );
 
   useEffect(() => {
     if (!mapElement.current) return;
@@ -118,15 +114,14 @@ const CustomInteraction: React.FC = () => {
     return () => initialMap.setTarget(undefined);
   }, [source]);
 
-  // TODO:
   useEffect(() => {
-    if (!map || !draw) return;
+    if (!map || !copy) return;
 
-    map.addInteraction(draw);
+    map.addInteraction(copy);
     return () => {
-      map.removeInteraction(draw);
+      map.removeInteraction(copy);
     };
-  }, [map, draw]);
+  }, [map, copy]);
 
   return (
     <div className="m-4 flex-col">
