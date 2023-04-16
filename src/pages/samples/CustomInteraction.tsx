@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
 import 'ol/ol.css';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
@@ -123,11 +123,23 @@ const CustomInteraction: React.FC = () => {
     };
   }, [map, copy]);
 
+  const handleRevertChange = useCallback(() => {
+    source.clear();
+    source.addFeature(new Feature(new Polygon(INITIAL_SHAPE)));
+  }, [source]);
+
   return (
     <div className="m-4 flex-col">
       <div className="text-4xl text-gray-700">Draw Point/LineString/Polygon</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
-      <div className="flex justify-start py-4"></div>
+      <div className="flex justify-start py-4">
+        <button
+          className="rounded-sm border border-solid border-gray-300 px-4 text-gray-600"
+          onClick={handleRevertChange}
+        >
+          Revert Changes
+        </button>
+      </div>
     </div>
   );
 };
