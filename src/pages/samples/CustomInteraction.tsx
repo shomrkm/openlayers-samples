@@ -57,8 +57,8 @@ export class Copy extends PointerInteraction {
   }
 
   /**
-   * Pointer drag イベントのハンドリング処理
-   * @param mapBrowserEvent イベント.
+   * Event handling for Pointer drag
+   * @param mapBrowserEvent Event
    */
   protected handleDragEvent(evt: MapBrowserEvent<MouseEvent>) {
     if (!this.selectedFeature) return;
@@ -75,9 +75,9 @@ export class Copy extends PointerInteraction {
   }
 
   /**
-   * Pointer up イベントのハンドリング処理
-   * @param mapBrowserEvent イベント.
-   * @return {boolean} イベントが処理されたら true
+   * Event handling for Pointer up
+   * @param mapBrowserEvent Event
+   * @return {boolean} return true if event was handled
    */
   protected handleUpEvent() {
     if (this.selectedFeature) {
