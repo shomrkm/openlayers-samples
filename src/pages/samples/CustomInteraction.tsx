@@ -67,9 +67,9 @@ export class Copy extends PointerInteraction {
     const deltaY = evt.coordinate[1] - this.coordinate[1];
 
     const geometry = this.selectedFeature.getGeometry();
-    if (!geometry) return;
+    if (!(geometry instanceof Geometry)) return;
 
-    (geometry as Geometry).translate(deltaX, deltaY);
+    geometry.translate(deltaX, deltaY);
 
     this.coordinate = [evt.coordinate[0], evt.coordinate[1]];
   }
@@ -80,8 +80,8 @@ export class Copy extends PointerInteraction {
    * @return {boolean} return true if event was handled
    */
   protected handleUpEvent() {
-    if (this.selectedFeature) {
-      this.source.addFeature((this.selectedFeature as Feature).clone());
+    if (this.selectedFeature instanceof Feature) {
+      this.source.addFeature(this.selectedFeature.clone());
     }
     this.coordinate = [];
     this.selectedFeature = undefined;
