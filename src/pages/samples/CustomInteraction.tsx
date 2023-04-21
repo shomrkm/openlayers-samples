@@ -12,8 +12,9 @@ import { Feature, MapBrowserEvent } from 'ol';
 import { Geometry, Polygon } from 'ol/geom';
 import PointerInteraction from 'ol/interaction/Pointer';
 import { FeatureLike } from 'ol/Feature';
+import { Coordinate } from 'ol/coordinate';
 
-const INITIAL_SHAPE = [
+const INITIAL_SHAPE: Coordinate[][] = [
   [
     [141.13922828482868, 39.700746114892695],
     [141.13562590259545, 39.699950292498954],
@@ -33,7 +34,7 @@ type Option = {
  * Custom Interaction class by using subclassing ol/interaction/Pointer to drag and copy.
  */
 export class Copy extends PointerInteraction {
-  protected coordinate: number[];
+  protected coordinate: Coordinate;
   protected selectedFeature: FeatureLike | undefined;
   readonly source: VectorSource;
 

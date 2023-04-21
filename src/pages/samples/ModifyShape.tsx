@@ -1,49 +1,29 @@
-import React, { useState, useEffect, useCallback, useRef, useMemo} from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 
 import 'ol/ol.css';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import OLMap from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
-import { Modify} from 'ol/interaction';
+import { Modify } from 'ol/interaction';
 import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { Polygon } from 'ol/geom';
 
 import { style } from '@/utils/olStyles';
+import { Coordinate } from 'ol/coordinate';
 
-const INITIAL_SHAPE = [
-      [
-        [
-          141.13922828482868,
-          39.700746114892695
-        ],
-        [
-          141.13562590259545,
-          39.699950292498954
-        ],
-        [
-          141.13569723689824,
-          39.69791953170119
-        ],
-        [
-          141.13826527175615,
-          39.69671202398027
-        ],
-        [
-          141.1412613124262,
-          39.69715112014126
-        ],
-        [
-          141.14261666418167,
-          39.699044690323944
-        ],
-        [
-          141.13922828482868,
-          39.700746114892695
-        ]
-      ]
-    ];
+const INITIAL_SHAPE: Coordinate[][] = [
+  [
+    [141.13922828482868, 39.700746114892695],
+    [141.13562590259545, 39.699950292498954],
+    [141.13569723689824, 39.69791953170119],
+    [141.13826527175615, 39.69671202398027],
+    [141.1412613124262, 39.69715112014126],
+    [141.14261666418167, 39.699044690323944],
+    [141.13922828482868, 39.700746114892695],
+  ],
+];
 
 const ModifyShape: React.FC = () => {
   const mapElement = useRef<HTMLDivElement>(null);
@@ -52,7 +32,7 @@ const ModifyShape: React.FC = () => {
   const source = useMemo(() => new VectorSource(), []);
   const draw = useMemo(() => new Modify({ source }), [source]);
 
-  source.addFeature(new Feature( new Polygon(INITIAL_SHAPE)));
+  source.addFeature(new Feature(new Polygon(INITIAL_SHAPE)));
 
   useEffect(() => {
     if (!mapElement.current) return;
@@ -82,7 +62,7 @@ const ModifyShape: React.FC = () => {
 
   const handleRevertChange = useCallback(() => {
     source.clear();
-    source.addFeature(new Feature( new Polygon(INITIAL_SHAPE)));
+    source.addFeature(new Feature(new Polygon(INITIAL_SHAPE)));
   }, [source]);
 
   return (
@@ -94,7 +74,7 @@ const ModifyShape: React.FC = () => {
           className="rounded-sm border border-solid border-gray-300 px-4 text-gray-600"
           onClick={handleRevertChange}
         >
-         Revert Changes 
+          Revert Changes
         </button>
       </div>
     </div>
