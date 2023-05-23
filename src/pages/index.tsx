@@ -22,6 +22,16 @@ const pages: CardProps[] = [
     description: 'Drawing a circle type shape on the basemap.',
     link: '/samples/DrawCircleTypeShape',
   },
+  {
+    title: 'Custom Interaction',
+    description: 'Implement custom interaction that drag and copy.',
+    link: '/samples/CustomInteraction',
+  },
+  {
+    title: 'Custom Control',
+    description: 'Implement custom control.',
+    link: '/samples/CustomControl',
+  },
 ];
 
 export default function Home() {
@@ -32,7 +42,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="m-2 h-screen w-screen flex-col bg-gray-100">
-        <div className="p-4 text-3xl font-bold text-gray-600">Openlayers Examples with React + TypeScript</div>
+        <div className="p-4 text-3xl font-bold text-gray-600">
+          Openlayers Examples with React + TypeScript
+        </div>
         <div className="m-2 flex flex-wrap justify-start gap-2">
           {pages.map((page) => (
             <Card
