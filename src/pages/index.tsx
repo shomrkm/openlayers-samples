@@ -27,6 +27,11 @@ const pages: CardProps[] = [
     description: 'Implement custom interaction that drag and copy.',
     link: '/samples/CustomInteraction',
   },
+  {
+    title: 'Custom Control',
+    description: 'Implement custom control.',
+    link: '/samples/CustomControl',
+  },
 ];
 
 export default function Home() {
