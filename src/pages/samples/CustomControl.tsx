@@ -5,7 +5,7 @@ import { Tile as TileLayer } from 'ol/layer';
 import OLMap from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
-import { Control, defaults as defaultControls } from 'ol/control';
+import { Control } from 'ol/control';
 
 type Options = {
   element?: HTMLElement | undefined;
@@ -43,7 +43,7 @@ class CenterIconControl extends Control {
 
 const CustomControl: React.FC = () => {
   const mapElement = useRef<HTMLDivElement>(null);
-  const [, setMap] = useState<OLMap | undefined>();
+  const [map, setMap] = useState<OLMap | undefined>();
 
   useEffect(() => {
     if (!mapElement.current) return;
@@ -51,15 +51,26 @@ const CustomControl: React.FC = () => {
       target: mapElement.current,
       view: new View({ projection: 'CRS:84', zoom: 16, center: [141.1378, 39.6987] }),
       layers: [new TileLayer({ source: new OSM() })],
-      controls: defaultControls().extend([new CenterIconControl({})]),
     });
     setMap(initialMap);
     return () => initialMap.setTarget(undefined);
   }, []);
 
+  useEffect(() => {
+    if(!map) return;
+
+    const control = new CenterIconControl({});
+    map.on('moveend', () => {
+      map.addControl(control);
+    });
+    map.on('movestart', () => {
+      map.removeControl(control);
+    });
+  }, [map]);
+
   return (
     <div className="m-4 flex-col">
-      <div className="text-4xl text-gray-700">Custom Interaction</div>
+      <div className="text-4xl text-gray-700">Custom Control</div>
       <div className="mt-4 h-[600px] w-full" ref={mapElement} />
     </div>
   );
