@@ -12,7 +12,7 @@ type Options = {
   target?: string | HTMLElement | undefined;
 };
 
-class RotateNorthControl extends Control {
+class CenterIconControl extends Control {
   /**
    * @param {Object} [opt_options] Control options.
    */
@@ -38,12 +38,6 @@ class RotateNorthControl extends Control {
       element: element,
       target: options.target,
     });
-
-    element.addEventListener('click', this.handleRotateNorth.bind(this), false);
-  }
-
-  handleRotateNorth() {
-    this.getMap()?.getView().setRotation(0);
   }
 }
 
@@ -57,7 +51,7 @@ const CustomControl: React.FC = () => {
       target: mapElement.current,
       view: new View({ projection: 'CRS:84', zoom: 16, center: [141.1378, 39.6987] }),
       layers: [new TileLayer({ source: new OSM() })],
-      controls: defaultControls().extend([new RotateNorthControl({})]),
+      controls: defaultControls().extend([new CenterIconControl({})]),
     });
     setMap(initialMap);
     return () => initialMap.setTarget(undefined);
