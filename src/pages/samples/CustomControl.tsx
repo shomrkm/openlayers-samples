@@ -24,14 +24,8 @@ class CenterIconControl extends Control {
 
     const element = document.createElement('div');
     element.className = 'ol-control';
+    element.classList.add('plus-mark');
     element.classList.add('zoom-in');
-    element.style.cssText =
-      'display: flex;' +
-      'font-size: 50px;' +
-      'width: 50px; height: 50px;' +
-      'top: 50%; left: 50%;' +
-      'opacity: 50%;' +
-      'background-color: transparent;';
     element.appendChild(img);
 
     super({
@@ -57,7 +51,7 @@ const CustomControl: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if(!map) return;
+    if (!map) return;
 
     const control = new CenterIconControl({});
     map.on('moveend', () => {

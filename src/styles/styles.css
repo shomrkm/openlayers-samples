@@ -1,5 +1,4 @@
 .zoom-in {
-  opacity: 0;
   animation-name: zoom-in;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
@@ -12,4 +11,13 @@
   to {
     transform: scale(1);
   }
+}
+
+.plus-mark {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  opacity: 50%;
+  background-color: transparent;
 }
