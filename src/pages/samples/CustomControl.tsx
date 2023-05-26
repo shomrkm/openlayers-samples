@@ -7,10 +7,16 @@ import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 import { Control } from 'ol/control';
 
+import { renderToString } from 'react-dom/server';
+
+import { TfiPlus } from 'react-icons/tfi';
+
 type Options = {
   element?: HTMLElement | undefined;
   target?: string | HTMLElement | undefined;
 };
+
+const tfiPlusIcon = <TfiPlus style={{ color: 'red', fontSize: '30px' }} />;
 
 class CenterIconControl extends Control {
   /**
@@ -20,7 +26,8 @@ class CenterIconControl extends Control {
     const options = opt_options || {};
 
     const img = document.createElement('img');
-    img.src = '/plus.svg';
+    const iconString = renderToString(tfiPlusIcon);
+    img.src = `data:image/svg+xml;utf8,${encodeURIComponent(iconString)}`;
 
     const element = document.createElement('div');
     element.className = 'ol-control';
